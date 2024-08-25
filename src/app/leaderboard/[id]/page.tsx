@@ -23,7 +23,7 @@ const Leaderboard = () => {
       try {
         const response = await fetch(`/api/event/${id}`);
         if (!response.ok) {
-          throw new Error("Failed to fetch event data");
+          throw new Error("Failed to fetch leaderboard");
         }
         const data = await response.json();
         setTeams(data.teams || []);

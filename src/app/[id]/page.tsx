@@ -22,7 +22,7 @@ const AdminPage = () => {
       try {
         const response = await fetch(`/api/event/${id}`);
         if (!response.ok) {
-          throw new Error("Failed to fetch teams");
+          throw new Error("Failed to fetch admin page");
         }
         const data = await response.json();
         setTeams(data.teams || []);
