@@ -78,17 +78,44 @@ export async function POST(
       );
     }
 
+    // Calculate the rank based on scores and deducted scores
+    const teamsWithTotalScore = teams.map((team) => ({
+      ...team,
+      totalScore: team.score - team.deductedScore,
+    }));
+
+    const sortedTeams = teamsWithTotalScore
+      .filter((team) => team.totalScore > 0) // Consider only teams with a positive totalScore
+      .sort((a, b) =>
+        b.totalScore === a.totalScore
+          ? a.deductedScore - b.deductedScore
+          : b.totalScore - a.totalScore
+      );
+
+    // Update ranks
+    const updatedTeams = teams.map((team) => {
+      const index = sortedTeams.findIndex(
+        (sortedTeam) => sortedTeam.id === team.id
+      );
+      return index !== -1
+        ? { ...team, rank: index + 1 } // Update rank based on sorted order
+        : { ...team, rank: 0 }; // Teams with no score get rank 0
+    });
+
+    // Prepare final data by excluding `totalScore` from the result
+    const finalTeams = updatedTeams.map(({ totalScore, ...team }) => team);
+
     // Store the event data in MongoDB
     const result = await eventCollection.updateOne(
       { _id: new ObjectId(params.id) },
-      { $set: { teams } },
+      { $set: { teams: finalTeams } },
       { upsert: true }
     );
 
     return NextResponse.json(
       {
         status: "success",
-        data: { _id: params.id, teams },
+        data: { _id: params.id, teams: finalTeams },
       },
       {
         headers: {
