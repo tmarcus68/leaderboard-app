@@ -41,7 +41,7 @@ const LeaderboardCard: React.FC<{ team: Team }> = ({ team }) => {
       className="teamRow"
       animate={{ scale: newTeam.score === oldTeam.score ? 1 : 1.03 }}
     >
-      <div className="rank">{team.rank}</div>
+      <div className="rank">{team.rank == 0 ? "-" : team.rank}</div>
       <div className="country">
         <CountryFlagWidget countryCode={team.country} />
       </div>
