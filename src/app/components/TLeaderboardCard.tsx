@@ -2,9 +2,10 @@ import React, { memo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import Image from "next/image";
-import CountUp from "react-countup";
 
 import { Team } from "@/types/interfaces";
+
+import CycleInfo from "./CycleInfo";
 
 // Utility function for delay
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
@@ -44,25 +45,7 @@ const TLeaderboardCard: React.FC<{ team: Team }> = ({ team }) => {
             <Image src={team.logo} alt="Team Logo" width={40} height={40} />
           </div>
           <div className="tInfoWrapper">
-            <span className="tInfoName">{team.chineseName}</span>
-            {/* <span className="tInfoScore">
-              <CountUp
-                duration={2}
-                decimals={2}
-                start={oldTeam?.score || 0}
-                end={newTeam.score}
-              />
-            </span>
-            <span className="tInfoDeductedScore">
-              <CountUp
-                duration={2}
-                decimals={2}
-                prefix="(-"
-                suffix=")"
-                start={oldTeam?.deductedScore || 0}
-                end={newTeam.deductedScore}
-              />
-            </span> */}
+            <CycleInfo team={team} oldTeam={oldTeam} newTeam={newTeam} />
           </div>
         </motion.div>
       )}

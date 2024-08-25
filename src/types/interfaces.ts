@@ -14,3 +14,15 @@ export interface TeamCardProps {
   onScoreChange: (id: number, newScore: number) => void;
   onDeductedScoreChange: (id: number, newDeductedScore: number) => void;
 }
+
+export interface Information {
+  chineseName: string;
+  score: number;
+  deductedScore: number;
+}
+
+export interface CycleInfoProps {
+  team: Information;
+  oldTeam?: Information;
+  newTeam: Information;
+}
