@@ -2,43 +2,46 @@
 
 import React, { useState } from "react";
 
-const AdminPage = () => {
-  const [teamId, setTeamId] = useState<number | null>(null);
-  const [newScore, setNewScore] = useState<number>(0);
+import { Team } from "@/types/interfaces";
 
-  const updateScore = () => {
-    // Logic to update score for the team
+import { eventData } from "@/app/data/eventDataDay";
+
+import TeamCard from "@/app/components/TeamCard";
+
+const AdminPage = () => {
+  const [teams, setTeams] = useState<Team[]>(eventData.teams);
+
+  const handleScoreChange = (id: number, newScore: number) => {
+    setTeams((prevTeams) =>
+      prevTeams.map((team) =>
+        team.id === id ? { ...team, score: newScore } : team
+      )
+    );
+  };
+
+  const handleDeductedScoreChange = (id: number, newDeductedScore: number) => {
+    setTeams((prevTeams) =>
+      prevTeams.map((team) =>
+        team.id === id ? { ...team, deductedScore: newDeductedScore } : team
+      )
+    );
   };
 
   return (
     <div className="adminPage">
-      <h1>Admin Page</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          updateScore();
-        }}
-      >
-        <div>
-          <label htmlFor="teamId">Team ID:</label>
-          <input
-            type="number"
-            id="teamId"
-            value={teamId ?? ""}
-            onChange={(e) => setTeamId(Number(e.target.value))}
-          />
+      <h1 className="adminPageTitle">Admin Page</h1>
+      <div className="teamCardsContainer">
+        <div className="teamCards">
+          {teams.map((team) => (
+            <TeamCard
+              key={team.id}
+              team={team}
+              onScoreChange={handleScoreChange}
+              onDeductedScoreChange={handleDeductedScoreChange}
+            />
+          ))}
         </div>
-        <div>
-          <label htmlFor="newScore">New Score:</label>
-          <input
-            type="number"
-            id="newScore"
-            value={newScore}
-            onChange={(e) => setNewScore(Number(e.target.value))}
-          />
-        </div>
-        <button type="submit">Update Score</button>
-      </form>
+      </div>
     </div>
   );
 };

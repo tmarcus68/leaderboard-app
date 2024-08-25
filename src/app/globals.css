@@ -6,9 +6,129 @@ html {
   padding: 0;
   height: 100%;
   width: 100%;
+}
+
+.adminPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure full viewport height */
+}
+
+.adminPageTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+  background: #f0f0f0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Ensure it stays on top of other content */
+}
+
+.teamCardsContainer {
+  flex: 1; /* Allow it to grow and fill the available space */
+  overflow-y: auto; /* Allow vertical scrolling */
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Ensure content stacks vertically */
+}
+
+.teamCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.teamCard {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%; /* Ensure card does not exceed container width */
+}
+
+.teamHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.teamLogo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.teamInfo {
+  text-align: center;
+}
+
+.teamMainName,
+.teamSubName {
+  overflow-wrap: break-word; /* Ensure long words break properly */
+}
+
+.teamMainName {
+  font-size: 20px;
+  margin: 0;
+  height: 2.4em; /* 2 lines of text (1.2em per line) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.teamSubName {
+  font-size: 16px;
+  margin: 0;
+  color: #555;
+  height: 3.6em; /* 3 lines of text (1.2em per line) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.teamScores {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px; /* Space between score fields */
+}
+
+.scoreField {
+  display: flex;
+  justify-content: space-between; /* Ensure label and input take full width */
+  align-items: center;
+}
+
+.scoreField label {
+  flex: 1; /* Take up remaining space */
+  text-align: left; /* Align label text to the left */
+  margin-right: 10px; /* Space between label and input */
+}
+
+.scoreField input {
+  flex: 1; /* Take up remaining space */
+  text-align: center;
+  width: 100%; /* Full width of the parent */
+}
+
+.leaderboardContainer {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 .leaderboard {
