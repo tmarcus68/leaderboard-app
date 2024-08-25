@@ -54,20 +54,10 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const {
-      eventTitle,
-      eventSubtitle,
-      eventShortTitle,
-      eventShortSubTitle,
-      teams,
-    } = await request.json();
+    const { teams } = await request.json();
 
     // Validate incoming data
     if (
-      typeof eventTitle !== "string" ||
-      typeof eventSubtitle !== "string" ||
-      typeof eventShortTitle !== "string" ||
-      typeof eventShortSubTitle !== "string" ||
       !Array.isArray(teams) ||
       !teams.every(
         (team) =>
@@ -81,13 +71,7 @@ export async function POST(
           typeof team.deductedScore === "number"
       )
     ) {
-      console.error("Invalid data format:", {
-        eventTitle,
-        eventSubtitle,
-        eventShortTitle,
-        eventShortSubTitle,
-        teams,
-      });
+      console.error("Invalid data format:", { teams });
       return NextResponse.json(
         { status: "error", message: "Invalid data format" },
         { status: 400 }
@@ -95,23 +79,16 @@ export async function POST(
     }
 
     // Store the event data in MongoDB
-    const eventData = {
-      eventTitle,
-      eventSubtitle,
-      eventShortTitle,
-      eventShortSubTitle,
-      teams,
-    };
     const result = await eventCollection.updateOne(
       { _id: new ObjectId(params.id) },
-      { $set: eventData },
+      { $set: { teams } },
       { upsert: true }
     );
 
     return NextResponse.json(
       {
         status: "success",
-        data: { _id: params.id, ...eventData },
+        data: { _id: params.id, teams },
       },
       {
         headers: {

@@ -7,7 +7,7 @@ export const eventData = {
   teams: [
     {
       id: 1,
-      rank: 1,
+      rank: 0,
       country: "sg",
       logo: "/SCYWWHT.png",
       chineseName: "獅城揚威文化团",
@@ -17,7 +17,7 @@ export const eventData = {
     },
     {
       id: 2,
-      rank: 2,
+      rank: 0,
       country: "sg",
       logo: "/SDWHYSF.png",
       chineseName: "時代文化藝術坊",
@@ -27,7 +27,7 @@ export const eventData = {
     },
     {
       id: 3,
-      rank: 3,
+      rank: 0,
       country: "sg",
       logo: "/XJPTYTYH.png",
       chineseName: "新加坡騰義體育會 B 队",
@@ -37,7 +37,7 @@ export const eventData = {
     },
     {
       id: 4,
-      rank: 4,
+      rank: 0,
       country: "sg",
       logo: "/YWTYH.png",
       chineseName: "藝威體育會 B 队",
@@ -47,7 +47,7 @@ export const eventData = {
     },
     {
       id: 5,
-      rank: 5,
+      rank: 0,
       country: "sg",
       logo: "/KSTLSXY.png",
       chineseName: "關善壇龍獅學院 A 队",
@@ -57,7 +57,7 @@ export const eventData = {
     },
     {
       id: 6,
-      rank: 6,
+      rank: 0,
       country: "sg",
       logo: "/KFLSYJY.png",
       chineseName: "関峰龙狮研究院 A 队",
@@ -67,7 +67,7 @@ export const eventData = {
     },
     {
       id: 7,
-      rank: 7,
+      rank: 0,
       country: "sg",
       logo: "/XJPWYLSYDXH.png",
       chineseName: "新加坡文揚龙狮运动协会",
@@ -77,7 +77,7 @@ export const eventData = {
     },
     {
       id: 8,
-      rank: 8,
+      rank: 0,
       country: "sg",
       logo: "/NXLSTYH.png",
       chineseName: "南仙龍獅體育會",

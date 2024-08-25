@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import { Team } from "@/types/interfaces";
-
-interface TeamCardProps {
-  team: Team;
-  onScoreChange: (id: number, newScore: number) => void;
-  onDeductedScoreChange: (id: number, newDeductedScore: number) => void;
-}
+import React, { useState, useEffect } from "react";
+import { TeamCardProps } from "@/types/interfaces";
 
 const TeamCard: React.FC<TeamCardProps> = ({
   team,
@@ -17,10 +11,16 @@ const TeamCard: React.FC<TeamCardProps> = ({
     team.deductedScore
   );
 
+  // Sync local state with props
+  useEffect(() => {
+    setScore(team.score);
+    setDeductedScore(team.deductedScore);
+  }, [team]);
+
   const handleScoreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newScore = parseFloat(e.target.value);
     setScore(newScore);
-    onScoreChange(team.id, newScore);
+    onScoreChange(team.id, newScore); // Notify parent about score change
   };
 
   const handleDeductedScoreChange = (
@@ -28,7 +28,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
   ) => {
     const newDeductedScore = parseFloat(e.target.value);
     setDeductedScore(newDeductedScore);
-    onDeductedScoreChange(team.id, newDeductedScore);
+    onDeductedScoreChange(team.id, newDeductedScore); // Notify parent about deducted score change
   };
 
   return (

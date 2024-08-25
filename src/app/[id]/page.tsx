@@ -1,14 +1,18 @@
 "use client"; // This directive makes this component a Client Component
 
+import { useParams } from "next/navigation";
+
 import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation"; // Import useParams
+
 import { Team } from "@/types/interfaces";
+
 import TeamCard from "@/app/components/TeamCard";
 
 const AdminPage = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [hasChanges, setHasChanges] = useState<boolean>(false); // Track changes
   const { id } = useParams(); // Get the event ID from params
 
   useEffect(() => {
@@ -32,29 +36,15 @@ const AdminPage = () => {
     fetchTeams();
   }, [id]);
 
-  const handleScoreChange = async (teamId: number, newScore: number) => {
+  const handleScoreChange = (teamId: number, newScore: number) => {
     const updatedTeams = teams.map((team) =>
       team.id === teamId ? { ...team, score: newScore } : team
     );
     setTeams(updatedTeams);
-
-    try {
-      const response = await fetch(`/api/event/${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ teams: updatedTeams }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to update score");
-      }
-    } catch (error) {
-      setError((error as Error).message); // Type assertion for error
-    }
+    setHasChanges(true); // Set flag when there are changes
   };
 
-  const handleDeductedScoreChange = async (
+  const handleDeductedScoreChange = (
     teamId: number,
     newDeductedScore: number
   ) => {
@@ -62,20 +52,27 @@ const AdminPage = () => {
       team.id === teamId ? { ...team, deductedScore: newDeductedScore } : team
     );
     setTeams(updatedTeams);
+    setHasChanges(true); // Set flag when there are changes
+  };
 
+  const handleUpdate = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`/api/event/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ teams: updatedTeams }),
+        body: JSON.stringify({ teams }),
       });
       if (!response.ok) {
-        throw new Error("Failed to update deducted score");
+        throw new Error("Failed to update teams");
       }
+      setHasChanges(false); // Reset changes flag after successful update
     } catch (error) {
       setError((error as Error).message); // Type assertion for error
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,6 +82,13 @@ const AdminPage = () => {
   return (
     <div className="adminPage">
       <h1 className="adminPageTitle">Admin Page</h1>
+      <button
+        className="updateButton"
+        onClick={handleUpdate}
+        disabled={!hasChanges || loading}
+      >
+        Update
+      </button>
       <div className="teamCardsContainer">
         <div className="teamCards">
           {teams.map((team) => (
