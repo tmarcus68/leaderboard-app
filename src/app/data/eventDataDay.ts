@@ -1,9 +1,9 @@
 export const eventData = {
-  eventTitle: "2024第28届义安城全国舞狮锦标赛 自选高桩 大决赛 第一天",
+  eventTitle: "2024第28届义安城全国舞狮锦标赛 自选高桩 大决赛",
   eventSubtitle:
-    "28th Ngee Ann City National Lion Dance Championships 2024 Free-Style Routine Finals Day 1",
-  eventShortTitle: "自选高桩 大决赛 第一天",
-  eventShortSubTitle: "Free-Style Routine Finals Day 1",
+    "28th Ngee Ann City National Lion Dance Championships 2024 Free-Style Routine Finals",
+  eventShortTitle: "自选高桩 大决赛",
+  eventShortSubTitle: "Free-Style Routine Finals",
   teams: [
     {
       id: 1,

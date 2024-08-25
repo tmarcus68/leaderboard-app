@@ -1,5 +1,3 @@
-// src/app/api/event/[id]/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 

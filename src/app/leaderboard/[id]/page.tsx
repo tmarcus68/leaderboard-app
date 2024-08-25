@@ -19,11 +19,17 @@ const Leaderboard = () => {
   // Function to sort an array of objects based on score or ID
   const sortTeams = (teams: Team[]) => {
     return [...teams].sort((a, b) => {
-      // Sort by score if available
-      if (a.score !== 0 && b.score !== 0) {
-        return b.score - a.score;
+      // Sort by rank if available and greater than 0
+      if (a.rank > 0 && b.rank > 0) {
+        return a.rank - b.rank; // Ascending order
       }
-      // Otherwise, sort by ID
+      if (a.rank > 0) {
+        return -1; // 'a' comes before 'b'
+      }
+      if (b.rank > 0) {
+        return 1; // 'b' comes before 'a'
+      }
+      // If ranks are both 0, sort by ID
       return a.id - b.id;
     });
   };
@@ -36,6 +42,8 @@ const Leaderboard = () => {
       }
       const data = await response.json();
       setTeams(sortTeams(data.teams) || []);
+      console.log("teams", data.teams);
+      console.log("sortTeams", sortTeams(data.teams));
       setEventTitle(data.eventTitle || "");
       setEventSubtitle(data.eventSubtitle || "");
     } catch (error) {
