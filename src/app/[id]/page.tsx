@@ -13,29 +13,37 @@ const AdminPage = () => {
   const [eventShortTitle, setEventShortTitle] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [hasChanges, setHasChanges] = useState<boolean>(false); // Track changes
+  const [hasChanges, setHasChanges] = useState<boolean>(false);
+
   const { id } = useParams(); // Get the event ID from params
+
+  // Function to fetch teams
+  const fetchTeams = async () => {
+    try {
+      const response = await fetch(`/api/event/${id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch admin page");
+      }
+      const data = await response.json();
+      setEventShortTitle(data.eventShortTitle);
+      setTeams(data.teams || []);
+    } catch (error) {
+      setError((error as Error).message); // Type assertion for error
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!id) return;
 
-    const fetchTeams = async () => {
-      try {
-        const response = await fetch(`/api/event/${id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch admin page");
-        }
-        const data = await response.json();
-        setEventShortTitle(data.eventShortTitle);
-        setTeams(data.teams || []);
-      } catch (error) {
-        setError((error as Error).message); // Type assertion for error
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchTeams(); // Initial fetch
 
-    fetchTeams();
+    // Polling interval to fetch data every 5 seconds (5000 ms)
+    const intervalId = setInterval(fetchTeams, 5000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, [id]);
 
   const handleScoreChange = (teamId: number, newScore: number) => {
