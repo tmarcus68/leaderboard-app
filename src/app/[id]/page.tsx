@@ -10,6 +10,7 @@ import TeamCard from "@/app/components/TeamCard";
 
 const AdminPage = () => {
   const [teams, setTeams] = useState<Team[]>([]);
+  const [eventShortTitle, setEventShortTitle] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [hasChanges, setHasChanges] = useState<boolean>(false); // Track changes
@@ -25,6 +26,7 @@ const AdminPage = () => {
           throw new Error("Failed to fetch admin page");
         }
         const data = await response.json();
+        setEventShortTitle(data.eventShortTitle);
         setTeams(data.teams || []);
       } catch (error) {
         setError((error as Error).message); // Type assertion for error
@@ -81,7 +83,7 @@ const AdminPage = () => {
 
   return (
     <div className="adminPage">
-      <h1 className="adminPageTitle">Admin Page</h1>
+      <h1 className="adminPageTitle">Admin Page - {eventShortTitle}</h1>
       <button
         className="updateButton"
         onClick={handleUpdate}
