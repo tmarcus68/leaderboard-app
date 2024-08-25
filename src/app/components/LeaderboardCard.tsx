@@ -7,9 +7,6 @@ import CountUp from "react-countup";
 
 import { Team } from "@/types/interfaces";
 
-// Utility function to format numbers
-const formatNumber = (num: number) => num.toLocaleString();
-
 // Utility function for delay
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 

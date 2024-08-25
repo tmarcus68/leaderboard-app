@@ -16,7 +16,7 @@ const Leaderboard = () => {
 
   const { id } = useParams(); // Get the event ID from the route params
 
-  // Function to sort an array of objects based on score or ID
+  // Function to sort an array of objects based on rank or ID
   const sortTeams = (teams: Team[]) => {
     return [...teams].sort((a, b) => {
       // Sort by rank if available and greater than 0
@@ -41,9 +41,8 @@ const Leaderboard = () => {
         throw new Error("Failed to fetch leaderboard");
       }
       const data = await response.json();
-      setTeams(sortTeams(data.teams) || []);
-      console.log("teams", data.teams);
-      console.log("sortTeams", sortTeams(data.teams));
+      const sortedTeams = sortTeams(data.teams) || [];
+      setTeams(sortedTeams);
       setEventTitle(data.eventTitle || "");
       setEventSubtitle(data.eventSubtitle || "");
     } catch (error) {
