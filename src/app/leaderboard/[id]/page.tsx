@@ -18,15 +18,12 @@ const Leaderboard = () => {
 
   // Function to sort an array of objects based on score or ID
   const sortTeams = (teams: Team[]) => {
-    console.log("sorting...");
     return [...teams].sort((a, b) => {
       // Sort by score if available
       if (a.score !== 0 && b.score !== 0) {
-        console.log("score");
         return b.score - a.score;
       }
       // Otherwise, sort by ID
-      console.log("id");
       return a.id - b.id;
     });
   };
@@ -39,7 +36,6 @@ const Leaderboard = () => {
       }
       const data = await response.json();
       setTeams(sortTeams(data.teams) || []);
-      console.log(data.teams);
       setEventTitle(data.eventTitle || "");
       setEventSubtitle(data.eventSubtitle || "");
     } catch (error) {
