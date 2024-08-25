@@ -16,27 +16,34 @@ const Leaderboard = () => {
 
   const { id } = useParams(); // Get the event ID from the route params
 
+  // Function to fetch event data
+  const fetchEventData = async () => {
+    try {
+      const response = await fetch(`/api/event/${id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch leaderboard");
+      }
+      const data = await response.json();
+      setTeams(data.teams || []);
+      setEventTitle(data.eventTitle || "");
+      setEventSubtitle(data.eventSubtitle || "");
+    } catch (error) {
+      setError((error as Error).message); // Handle and store error
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!id) return;
 
-    const fetchEventData = async () => {
-      try {
-        const response = await fetch(`/api/event/${id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch leaderboard");
-        }
-        const data = await response.json();
-        setTeams(data.teams || []);
-        setEventTitle(data.eventTitle || "");
-        setEventSubtitle(data.eventSubtitle || "");
-      } catch (error) {
-        setError((error as Error).message); // Handle and store error
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchEventData(); // Initial fetch
 
-    fetchEventData();
+    // Polling interval to fetch data every 5 seconds (5000 ms)
+    const intervalId = setInterval(fetchEventData, 5000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, [id]);
 
   if (loading) return <p className="center">Loading...</p>;
