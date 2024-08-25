@@ -1,33 +1,227 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "flag-icons/css/flag-icons.min.css";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.leaderboard {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+  background: #f0f0f0; /* Light background for contrast */
+  padding: 0 10px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  opacity: 0.95;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.header {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 40px;
+  color: #000;
+  padding-bottom: 20px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.header .title {
+  display: block;
+  font-size: 40px;
+}
+
+.header .subtitle {
+  display: block;
+  font-size: 24px;
+}
+
+.teamRow {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+  transition: all 0.3s ease;
+}
+
+.teamRow > div {
+  border-right: 1px solid #ddd;
+  padding: 0 10px;
+}
+
+.teamRow > div:last-child {
+  border-right: none; /* Remove the border from the last item */
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  text-align: center;
+  color: #fff; /* White text for contrast */
+}
+
+.country {
+  width: 60px;
+}
+
+.country img {
+  width: 60px;
+  height: 60px;
+}
+
+.logo {
+  width: 60px;
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+}
+
+.name {
+  flex-grow: 1;
+  text-align: left;
+  padding-left: 15px; /* Increased padding for better spacing */
+  color: #fff; /* White text for contrast */
+}
+
+.name .chineseName,
+.name .englishName {
+  display: block;
+}
+
+.chineseName {
+  font-size: 30px; /* Slightly larger font size for Chinese name */
+}
+
+.englishName {
+  font-size: 20px; /* Smaller font size for English name */
+}
+
+.score,
+.deductedScore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 60px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.score {
+  color: #eee; /* Light gray text for score */
+}
+
+.deductedScore {
+  color: #f44336; /* Red color for deducted score */
+}
+
+/* Set the flag icons to be square and override any default aspect ratio */
+.fi {
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  display: inline-block;
+  line-height: 60px;
+  text-align: center;
+}
+
+.fi.fis {
+  width: 60px;
+  height: 60px;
+}
+
+.timingTower {
+  width: 350px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #f0f0f0; /* Light background for contrast */
+  padding: 0 0 10px 0;
+  border-bottom-right-radius: 10px;
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  opacity: 0.95;
+}
+
+.tHeader {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 25px;
+  color: #000;
+  padding: 10px 0;
+}
+
+.tTitle {
+  display: block;
+  font-size: 30px;
+}
+
+.tSubtitle {
+  display: block;
+  font-size: 21.5px;
+}
+
+.tTeamRow {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 5px 0;
+  border: 1px solid #ddd;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+.tTeamRow > div {
+  border-right: 1px solid #ddd;
+  padding: 0 10px;
+}
+
+.tTeamRow > div:last-child {
+  border-right: none; /* Remove the border from the last item */
+}
+
+.tRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.tLogo {
+  height: 40px;
+}
+
+.tLogo img {
+  width: 40px;
+  height: 40px;
+}
+
+.tInfoWrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.tInfo {
+  font-size: 20px;
+  text-align: center;
+  color: #fff; /* Default color for all text */
 }
