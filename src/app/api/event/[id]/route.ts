@@ -1,15 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 
-const client = new MongoClient(process.env.MONGODB_URI!);
-const database = client.db("leaderboard-app");
-const eventCollection = database.collection("event");
+// Create a MongoClient instance and reuse it across all requests
+let client: MongoClient | null = null;
+let clientPromise: Promise<MongoClient>;
 
+if (!client) {
+  client = new MongoClient(process.env.MONGODB_URI!);
+  clientPromise = client.connect();
+} else {
+  clientPromise = Promise.resolve(client);
+}
+
+// Handler for GET requests
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
+    const client = await clientPromise;
+    const database = client.db("leaderboard-app");
+    const eventCollection = database.collection("event");
+
     const eventId = params.id;
 
     if (!eventId) {
@@ -47,11 +59,16 @@ export async function GET(
   }
 }
 
+// Handler for POST requests
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
+    const client = await clientPromise;
+    const database = client.db("leaderboard-app");
+    const eventCollection = database.collection("event");
+
     const { teams } = await request.json();
 
     // Validate incoming data

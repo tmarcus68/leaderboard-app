@@ -29,6 +29,7 @@ const CycleInfo: React.FC<CycleInfoProps> = ({ team, oldTeam, newTeam }) => {
           <span className="tInfoScore">
             最后得分：
             <CountUp
+              key={`score-${newTeam.score}`} // Unique key for score
               duration={2}
               decimals={2}
               start={oldTeam?.score || 0}
@@ -41,6 +42,7 @@ const CycleInfo: React.FC<CycleInfoProps> = ({ team, oldTeam, newTeam }) => {
           <span className="tInfoDeductedScore">
             扣分：
             <CountUp
+              key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
               duration={2}
               decimals={2}
               prefix="(-"

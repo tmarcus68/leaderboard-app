@@ -53,6 +53,7 @@ const LeaderboardCard: React.FC<{ team: Team }> = ({ team }) => {
           </div>
           <div className="score">
             <CountUp
+              key={`score-${newTeam.score}`} // Unique key for score
               duration={2}
               decimals={2}
               start={oldTeam?.score || 0}
@@ -61,6 +62,7 @@ const LeaderboardCard: React.FC<{ team: Team }> = ({ team }) => {
           </div>
           <div className="deductedScore">
             <CountUp
+              key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
               duration={2}
               decimals={2}
               prefix="(-"
