@@ -375,8 +375,20 @@ html {
   width: 100%;
 }
 
-.tInfo {
+.tInfoName {
   font-size: 20px;
   text-align: center;
-  color: #fff; /* Default color for all text */
+  color: #fff;
+}
+
+.tInfoScore {
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.tInfoDeductedScore {
+  font-size: 20px;
+  text-align: center;
+  color: #f44336;
 }
