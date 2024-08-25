@@ -84,13 +84,22 @@ export async function POST(
       totalScore: team.score - team.deductedScore,
     }));
 
+    console.log("teamsWithTotalScore: ", teamsWithTotalScore);
+
+    // Sort teams according to the criteria
     const sortedTeams = teamsWithTotalScore
       .filter((team) => team.totalScore > 0) // Consider only teams with a positive totalScore
-      .sort((a, b) =>
-        b.totalScore === a.totalScore
-          ? a.deductedScore - b.deductedScore
-          : b.totalScore - a.totalScore
-      );
+      .sort((a, b) => {
+        if (b.score !== a.score) {
+          return b.score - a.score; // Sort by score descending
+        } else if (b.deductedScore !== a.deductedScore) {
+          return a.deductedScore - b.deductedScore; // Sort by deductedScore ascending
+        } else {
+          return a.id - b.id; // Sort by id ascending
+        }
+      });
+
+    console.log("sortedTeams: ", sortedTeams);
 
     // Update ranks
     const updatedTeams = teams.map((team) => {
@@ -102,8 +111,12 @@ export async function POST(
         : { ...team, rank: 0 }; // Teams with no score get rank 0
     });
 
+    console.log("updatedTeams: ", updatedTeams);
+
     // Prepare final data by excluding `totalScore` from the result
     const finalTeams = updatedTeams.map(({ totalScore, ...team }) => team);
+
+    console.log("finalTeams: ", finalTeams);
 
     // Store the event data in MongoDB
     const result = await eventCollection.updateOne(
