@@ -16,21 +16,16 @@ const Leaderboard = () => {
 
   const { id } = useParams(); // Get the event ID from the route params
 
-  // Function to sort an array of objects based on rank or ID
+  // Function to sort an array of objects based on score, deductedScore, and ID
   const sortTeams = (teams: Team[]) => {
     return [...teams].sort((a, b) => {
-      // Sort by rank if available and greater than 0
-      if (a.rank > 0 && b.rank > 0) {
-        return a.rank - b.rank; // Ascending order
+      if (b.score !== a.score) {
+        return b.score - a.score; // Sort by score descending
+      } else if (b.deductedScore !== a.deductedScore) {
+        return a.deductedScore - b.deductedScore; // Sort by deductedScore ascending
+      } else {
+        return a.id - b.id; // Sort by id ascending
       }
-      if (a.rank > 0) {
-        return -1; // 'a' comes before 'b'
-      }
-      if (b.rank > 0) {
-        return 1; // 'b' comes before 'a'
-      }
-      // If ranks are both 0, sort by ID
-      return a.id - b.id;
     });
   };
 
