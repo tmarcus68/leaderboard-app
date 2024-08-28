@@ -163,20 +163,79 @@ html {
 
 .scoreField {
   display: flex;
-  justify-content: space-between; /* Ensure label and input take full width */
-  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px; /* Space between score fields */
 }
 
 .scoreField label {
-  flex: 1; /* Take up remaining space */
-  text-align: left; /* Align label text to the left */
-  margin-right: 10px; /* Space between label and input */
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px; /* Adjust as needed */
 }
 
-.scoreField input {
-  flex: 1; /* Take up remaining space */
+.scoreControl {
+  display: flex;
+  flex-direction: column; /* Stack rows vertically */
+  gap: 8px; /* Space between rows */
+}
+
+.scoreControl .row {
+  display: flex;
+  gap: 8px; /* Space between items in a row */
+}
+
+.scoreControl button,
+.scoreControl input {
+  flex: 1;
+  min-width: 0; /* Prevent overflow issues */
+}
+
+.scoreControl .row:first-child {
+  width: 100%;
+}
+
+.scoreControl .row:first-child button:first-child,
+.scoreControl .row:first-child button:last-child {
+  width: 25%; /* Width for -1.00 and +1.00 buttons */
+}
+
+.scoreControl .row:first-child input {
+  width: 50%; /* Width for the input field */
+}
+
+.scoreControl .row:nth-child(2) button {
+  width: 25%; /* Width for -0.01, -0.10, +0.10, +0.01 buttons */
+}
+
+.scoreControl .scoreButton {
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
   text-align: center;
-  width: 100%; /* Full width of the parent */
+}
+
+.scoreControl .deductedScoreButton {
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+
+.scoreControl input {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .leaderboardContainer {
