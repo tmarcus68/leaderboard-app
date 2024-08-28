@@ -25,33 +25,62 @@ const CycleInfo: React.FC<CycleInfoProps> = ({ team, oldTeam, newTeam }) => {
       case "chineseName":
         return <span className="tInfoName">{team.chineseName}</span>;
       case "score":
-        return (
-          <span className="tInfoScore">
-            最后得分：
-            <CountUp
-              key={`score-${newTeam.score}`} // Unique key for score
-              duration={2}
-              decimals={2}
-              start={oldTeam?.score || 0}
-              end={newTeam.score}
-            />
-          </span>
-        );
+        if (
+          newTeam.deductedScore == 9.99 ||
+          newTeam.deductedScore == 9.989999999999995
+        ) {
+          return <span className="tInfoScore">棄權</span>;
+        } else {
+          return (
+            <span className="tInfoScore">
+              最后得分：
+              <CountUp
+                key={`score-${newTeam.score}`} // Unique key for score
+                duration={2}
+                decimals={2}
+                start={oldTeam?.score || 0}
+                end={newTeam.score}
+              />
+            </span>
+          );
+        }
+
       case "deductedScore":
-        return (
-          <span className="tInfoDeductedScore">
-            扣分：
-            <CountUp
-              key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
-              duration={2}
-              decimals={2}
-              prefix="(-"
-              suffix=")"
-              start={oldTeam?.deductedScore || 0}
-              end={newTeam.deductedScore}
-            />
-          </span>
-        );
+        if (
+          newTeam.deductedScore == 9.99 ||
+          newTeam.deductedScore == 9.989999999999995
+        ) {
+          return (
+            <span className="tInfoDeductedScore">
+              扣分：
+              <CountUp
+                key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
+                duration={2}
+                decimals={2}
+                prefix="(-"
+                suffix=")"
+                start={oldTeam?.deductedScore || 0}
+                end={0}
+              />
+            </span>
+          );
+        } else {
+          return (
+            <span className="tInfoDeductedScore">
+              扣分：
+              <CountUp
+                key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
+                duration={2}
+                decimals={2}
+                prefix="(-"
+                suffix=")"
+                start={oldTeam?.deductedScore || 0}
+                end={newTeam.deductedScore}
+              />
+            </span>
+          );
+        }
+
       default:
         return null;
     }

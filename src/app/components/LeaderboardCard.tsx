@@ -52,7 +52,8 @@ const LeaderboardCard: React.FC<{ team: Team }> = ({ team }) => {
             <span className="englishName">{team.englishName}</span>
           </div>
           <div className="score">
-            {newTeam.deductedScore == 9.99 ? (
+            {newTeam.deductedScore == 9.99 ||
+            newTeam.deductedScore == 9.989999999999995 ? (
               <span>棄權</span>
             ) : (
               <CountUp
@@ -65,7 +66,8 @@ const LeaderboardCard: React.FC<{ team: Team }> = ({ team }) => {
             )}
           </div>
           <div className="deductedScore">
-            {newTeam.deductedScore == 9.99 ? (
+            {newTeam.deductedScore == 9.99 ||
+            newTeam.deductedScore == 9.989999999999995 ? (
               <CountUp
                 key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
                 duration={2}
