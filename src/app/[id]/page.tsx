@@ -82,14 +82,16 @@ const AdminPage = () => {
 
   return (
     <div className="adminPage">
-      <h1 className="adminPageTitle">Admin Page - {eventShortTitle}</h1>
-      <button
-        className="updateButton"
-        onClick={handleUpdate}
-        disabled={!hasChanges || loading}
-      >
-        Update
-      </button>
+      <div className="adminHeader">
+        <h1 className="adminPageTitle">Admin Page - {eventShortTitle}</h1>
+        <button
+          className="updateButton"
+          onClick={handleUpdate}
+          disabled={!hasChanges || loading}
+        >
+          Update
+        </button>
+      </div>
       <div className="teamCardsContainer">
         <div className="teamCards">
           {teams.map((team) => (

@@ -21,11 +21,7 @@ html {
   min-height: 100vh; /* Ensure full viewport height */
 }
 
-.adminPageTitle {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #000;
-  text-align: center;
+.adminHeader {
   margin: 0;
   padding: 10px;
   background: #f0f0f0;
@@ -33,7 +29,21 @@ html {
   position: sticky;
   top: 0;
   z-index: 10; /* Ensure it stays on top of other content */
+}
+
+.adminPageTitle {
   margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .adminPageTitle {
+    font-size: 1rem; /* Adjust the font size for smaller screens */
+    text-align-last: left;
+  }
 }
 
 .updateButton {
@@ -41,7 +51,7 @@ html {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   color: #ffffff;
   border: none;
-  height: 49px;
+  height: 52px;
   width: 90px;
   border-radius: 4px;
   padding: 8px 16px;
@@ -52,6 +62,16 @@ html {
   top: 10px;
   right: 10px;
   z-index: 11; /* Ensure it stays on top of other content */
+}
+
+@media (max-width: 768px) {
+  .updateButton {
+    height: 30px;
+    text-align: center;
+    font-size: 0.7rem;
+    top: 7px;
+    right: 15px;
+  }
 }
 
 .updateButton:hover {
