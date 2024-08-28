@@ -52,24 +52,40 @@ const LeaderboardCard: React.FC<{ team: Team }> = ({ team }) => {
             <span className="englishName">{team.englishName}</span>
           </div>
           <div className="score">
-            <CountUp
-              key={`score-${newTeam.score}`} // Unique key for score
-              duration={2}
-              decimals={2}
-              start={oldTeam?.score || 0}
-              end={newTeam.score}
-            />
+            {newTeam.deductedScore == 9.99 ? (
+              <span>棄權</span>
+            ) : (
+              <CountUp
+                key={`score-${newTeam.score}`} // Unique key for score
+                duration={2}
+                decimals={2}
+                start={oldTeam?.score || 0}
+                end={newTeam.score}
+              />
+            )}
           </div>
           <div className="deductedScore">
-            <CountUp
-              key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
-              duration={2}
-              decimals={2}
-              prefix="(-"
-              suffix=")"
-              start={oldTeam?.deductedScore || 0}
-              end={newTeam.deductedScore}
-            />
+            {newTeam.deductedScore == 9.99 ? (
+              <CountUp
+                key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
+                duration={2}
+                decimals={2}
+                prefix="(-"
+                suffix=")"
+                start={oldTeam?.deductedScore || 0}
+                end={0}
+              />
+            ) : (
+              <CountUp
+                key={`deductedScore-${newTeam.deductedScore}`} // Unique key for deductedScore
+                duration={2}
+                decimals={2}
+                prefix="(-"
+                suffix=")"
+                start={oldTeam?.deductedScore || 0}
+                end={newTeam.deductedScore}
+              />
+            )}
           </div>
         </motion.div>
       )}
